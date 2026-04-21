@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version "$loom_version"
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 }
 
@@ -33,22 +33,21 @@ repositories {
 
 dependencies {
 	minecraft "com.mojang:minecraft:$minecraft_version"
-	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:$loader_version"
+	implementation "net.fabricmc:fabric-loader:$loader_version"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
+	implementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
 
 	// Adds an API dependency on the base cardinal components module (required by every other module)
-	modApi "org.ladysnake.cardinal-components-api:cardinal-components-base:$cardinalcomponents_version"
-	include "org.ladysnake.cardinal-components-api:cardinal-components-base:$cardinalcomponents_version"
+	implementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cardinalcomponents_version}"
+	include "org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cardinalcomponents_version}"
 	// Replace modImplementation with modApi if you expose components in your own API
-	modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-world:$cardinalcomponents_version"
-	include "org.ladysnake.cardinal-components-api:cardinal-components-world:$cardinalcomponents_version"
+	implementation "org.ladysnake.cardinal-components-api:cardinal-components-level:${project.cardinalcomponents_version}"
+	include "org.ladysnake.cardinal-components-api:cardinal-components-level:${project.cardinalcomponents_version}"
 
-	modImplementation "dev.isxander:yet-another-config-lib:$yacl_version-fabric"
+	implementation "dev.isxander:yet-another-config-lib:$yacl_version-fabric"
 
-	modImplementation("com.terraformersmc:modmenu:$modmenu_version")
+	implementation("com.terraformersmc:modmenu:$modmenu_version")
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
@@ -69,7 +68,7 @@ tasks.withType(JavaCompile).configureEach {
 	// If Javadoc is generated, this must be specified in that task too.
 	it.options.encoding = "UTF-8"
 
-	it.options.release = 21
+	it.options.release = 25
 }
 
 java {
@@ -78,8 +77,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {
@@ -108,11 +107,11 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
+			artifact(jar) {
+				builtBy jar
 			}
 			artifact(sourcesJar) {
-				builtBy remapSourcesJar
+				builtBy sourcesJar
 			}
 		}
 	}
