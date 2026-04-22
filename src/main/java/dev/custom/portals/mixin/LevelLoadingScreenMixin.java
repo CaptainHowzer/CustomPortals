@@ -4,7 +4,7 @@ import dev.custom.portals.blocks.PortalBlock;
 import dev.custom.portals.util.*;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
 import net.minecraft.client.GameNarrator;
@@ -35,7 +35,7 @@ public abstract class LevelLoadingScreenMixin extends Screen {
     }
 
     @Inject(method = "renderBackground", at = @At("HEAD"), cancellable = true)
-    public void renderBackground(GuiGraphics drawContext, int i, int j, float f, CallbackInfo ci) {
+    public void renderBackground(GuiGraphicsExtractor drawContext, int i, int j, float f, CallbackInfo ci) {
         if (ClientUtil.transitionBackgroundSpriteModel != null) {
             ClientUtil.isTransitioning = true;
             if (!packetSent) {

@@ -6,7 +6,7 @@ import dev.custom.portals.CustomPortals;
 import dev.custom.portals.blocks.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.ChunkSectionLayerMap;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -135,26 +135,26 @@ public class CPBlocks {
 
         @Environment(EnvType.CLIENT)
         public static void setBlockRenderLayers() {
-                BlockRenderLayerMap.putBlock(HASTE_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
-                BlockRenderLayerMap.putBlock(GATE_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
-                BlockRenderLayerMap.putBlock(WEAK_ENHANCER_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
-                BlockRenderLayerMap.putBlock(STRONG_ENHANCER_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
-                BlockRenderLayerMap.putBlock(INFINITY_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
-                BlockRenderLayerMap.putBlock(BLACK_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(BLUE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(BROWN_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(CYAN_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(GRAY_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(GREEN_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(LIGHT_BLUE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(LIGHT_GRAY_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(LIME_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(MAGENTA_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(ORANGE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(PINK_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(PURPLE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(RED_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(WHITE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(YELLOW_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(HASTE_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
+                ChunkSectionLayerMap.putBlock(GATE_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
+                ChunkSectionLayerMap.putBlock(WEAK_ENHANCER_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
+                ChunkSectionLayerMap.putBlock(STRONG_ENHANCER_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
+                ChunkSectionLayerMap.putBlock(INFINITY_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
+                ChunkSectionLayerMap.putBlock(BLACK_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(BLUE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(BROWN_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(CYAN_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(GRAY_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(GREEN_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(LIGHT_BLUE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(LIGHT_GRAY_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(LIME_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(MAGENTA_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(ORANGE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(PINK_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(PURPLE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(RED_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(WHITE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+                ChunkSectionLayerMap.putBlock(YELLOW_PORTAL, ChunkSectionLayer.TRANSLUCENT);
         }
 }

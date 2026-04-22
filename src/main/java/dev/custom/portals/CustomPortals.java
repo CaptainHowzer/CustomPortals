@@ -13,10 +13,10 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import org.ladysnake.cca.api.v8.level.LevelComponentFactoryRegistry;
 import org.ladysnake.cca.api.v8.level.LevelComponentInitializer;
-import org.ladysnake.cca.api.v8.component.CardinalComponentRegistryV3;
-import org.ladysnake.cca.api.v8.component.CardinalComponentKey;
+import org.ladysnake.cca.api.v3.component.ComponentRegistryV3;
+import org.ladysnake.cca.api.v3.component.ComponentKey;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -27,7 +27,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.core.BlockPos;
 
-public class CustomPortals implements ModInitializer, WorldComponentInitializer {
+public class CustomPortals implements ModInitializer, LevelComponentInitializer {
 
         public static final String MOD_ID = "customportals";
 
@@ -39,15 +39,15 @@ public class CustomPortals implements ModInitializer, WorldComponentInitializer 
 
         @Override
         public void onInitialize() {
-                Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, PORTALS_ITEM_GROUP, FabricItemGroup.builder().icon(()
+                Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, PORTALS_ITEM_GROUP, FabricCreativeModeTab.builder().icon(()
                         -> new ItemStack(CPItems.PURPLE_PORTAL_CATALYST))
                         .title(Component.translatable("itemGroup.customportals.general")).build());
                 CPSettings.load();
                 CPBlocks.registerBlocks();
                 CPItems.registerItems();
                 CPParticles.registerParticles();
-                PayloadTypeRegistry.playS2C().register(DrawSpritePayload.ID, DrawSpritePayload.CODEC);
-                PayloadTypeRegistry.playC2S().register(ScreenTransitionPayload.ID, ScreenTransitionPayload.CODEC);
+                PayloadTypeRegistry.clientboundPlay().register(DrawSpritePayload.ID, DrawSpritePayload.CODEC);
+                PayloadTypeRegistry.serverboundPlay().register(ScreenTransitionPayload.ID, ScreenTransitionPayload.CODEC);
                 ServerPlayNetworking.registerGlobalReceiver(ScreenTransitionPayload.ID, (payload, context) -> {
                         context.server().execute(() -> {
                                 ((EntityMixinAccess)context.player()).setInTransition(payload.isTransitioning());
@@ -56,7 +56,7 @@ public class CustomPortals implements ModInitializer, WorldComponentInitializer 
         }
 
         @Override
-        public void registerWorldComponentFactories(WorldComponentFactoryRegistry registry) {
+        public void registerLevelComponentFactories(LevelComponentFactoryRegistry registry) {
                 registry.register(PORTALS, WorldPortals.class, WorldPortals::new);
         }
 

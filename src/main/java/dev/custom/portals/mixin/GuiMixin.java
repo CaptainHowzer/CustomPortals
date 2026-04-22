@@ -2,7 +2,7 @@ package dev.custom.portals.mixin;
 
 import dev.custom.portals.util.PortalHelper;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.util.ARGB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,6 +19,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 
 @Mixin(Gui.class)
 public abstract class GuiMixin {
@@ -28,7 +29,7 @@ public abstract class GuiMixin {
     private Minecraft minecraft;
 
     @Inject(method = "renderPortalOverlay", at = @At("HEAD"), cancellable = true)
-    private void renderPortalOverlay(GuiGraphics drawContext, float f, CallbackInfo ci) {
+    private void renderPortalOverlay(GuiGraphicsExtractor drawContext, float f, CallbackInfo ci) {
         int color = ((EntityMixinAccess)this.minecraft.player).getPortalColor();
         if(color != 0 && !((EntityMixinAccess)this.minecraft.player).isInNetherPortal()) {
             Block spriteModel = PortalHelper.getPortalBlockFromColorId(color);

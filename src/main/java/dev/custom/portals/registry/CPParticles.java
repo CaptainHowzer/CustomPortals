@@ -3,8 +3,8 @@ package dev.custom.portals.registry;
 import dev.custom.portals.CustomPortals;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.particle.v1.FabricSpriteProvider;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.particle.v1.FabricSpriteSet;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -55,21 +55,21 @@ public class CPParticles {
 
     @Environment(EnvType.CLIENT)
     public static void registerFactoryRegistries() {
-        ParticleFactoryRegistry.getInstance().register(BLACK_PORTAL_PARTICLE, BlackPortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(BLUE_PORTAL_PARTICLE, BluePortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(BROWN_PORTAL_PARTICLE, BrownPortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(CYAN_PORTAL_PARTICLE, CyanPortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(GRAY_PORTAL_PARTICLE, GrayPortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(GREEN_PORTAL_PARTICLE, GreenPortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(LIGHT_BLUE_PORTAL_PARTICLE, LightBluePortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(LIGHT_GRAY_PORTAL_PARTICLE, LightGrayPortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(LIME_PORTAL_PARTICLE, LimePortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(MAGENTA_PORTAL_PARTICLE, MagentaPortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(ORANGE_PORTAL_PARTICLE, OrangePortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(PINK_PORTAL_PARTICLE, PinkPortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(RED_PORTAL_PARTICLE, RedPortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(WHITE_PORTAL_PARTICLE, WhitePortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(YELLOW_PORTAL_PARTICLE, YellowPortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(BLACK_PORTAL_PARTICLE, BlackPortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(BLUE_PORTAL_PARTICLE, BluePortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(BROWN_PORTAL_PARTICLE, BrownPortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(CYAN_PORTAL_PARTICLE, CyanPortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(GRAY_PORTAL_PARTICLE, GrayPortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(GREEN_PORTAL_PARTICLE, GreenPortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(LIGHT_BLUE_PORTAL_PARTICLE, LightBluePortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(LIGHT_GRAY_PORTAL_PARTICLE, LightGrayPortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(LIME_PORTAL_PARTICLE, LimePortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(MAGENTA_PORTAL_PARTICLE, MagentaPortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(ORANGE_PORTAL_PARTICLE, OrangePortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(PINK_PORTAL_PARTICLE, PinkPortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(RED_PORTAL_PARTICLE, RedPortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(WHITE_PORTAL_PARTICLE, WhitePortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(YELLOW_PORTAL_PARTICLE, YellowPortalParticle.Factory::new);
     }
     
     @Environment(EnvType.CLIENT)
@@ -82,9 +82,9 @@ public class CPParticles {
 
             @Environment(EnvType.CLIENT)
             public static class Factory implements ParticleProvider<SimpleParticleType> {
-                    private final FabricSpriteProvider spriteProvider;
+                    private final FabricSpriteSet spriteProvider;
 
-                    public Factory(FabricSpriteProvider sprites) {
+                    public Factory(FabricSpriteSet sprites) {
                             this.spriteProvider = sprites;
                     }
 
@@ -108,9 +108,9 @@ public class CPParticles {
 
             @Environment(EnvType.CLIENT)
             public static class Factory implements ParticleProvider<SimpleParticleType> {
-                    private final FabricSpriteProvider spriteProvider;
+                    private final FabricSpriteSet spriteProvider;
 
-                    public Factory(FabricSpriteProvider sprites) {
+                    public Factory(FabricSpriteSet sprites) {
                             this.spriteProvider = sprites;
                     }
 
@@ -134,9 +134,9 @@ public class CPParticles {
 
             @Environment(EnvType.CLIENT)
             public static class Factory implements ParticleProvider<SimpleParticleType> {
-                    private final FabricSpriteProvider spriteProvider;
+                    private final FabricSpriteSet spriteProvider;
 
-                    public Factory(FabricSpriteProvider sprites) {
+                    public Factory(FabricSpriteSet sprites) {
                             this.spriteProvider = sprites;
                     }
 
@@ -160,9 +160,9 @@ public class CPParticles {
 
             @Environment(EnvType.CLIENT)
             public static class Factory implements ParticleProvider<SimpleParticleType> {
-                    private final FabricSpriteProvider spriteProvider;
+                    private final FabricSpriteSet spriteProvider;
 
-                    public Factory(FabricSpriteProvider sprites) {
+                    public Factory(FabricSpriteSet sprites) {
                             this.spriteProvider = sprites;
                     }
 
@@ -184,9 +184,9 @@ public class CPParticles {
 
             @Environment(EnvType.CLIENT)
             public static class Factory implements ParticleProvider<SimpleParticleType> {
-                    private final FabricSpriteProvider spriteProvider;
+                    private final FabricSpriteSet spriteProvider;
 
-                    public Factory(FabricSpriteProvider sprites) {
+                    public Factory(FabricSpriteSet sprites) {
                             this.spriteProvider = sprites;
                     }
 
@@ -210,9 +210,9 @@ public class CPParticles {
 
         @Environment(EnvType.CLIENT)
         public static class Factory implements ParticleProvider<SimpleParticleType> {
-            private final FabricSpriteProvider spriteProvider;
+            private final FabricSpriteSet spriteProvider;
 
-            public Factory(FabricSpriteProvider sprites) {
+            public Factory(FabricSpriteSet sprites) {
                 this.spriteProvider = sprites;
             }
 
@@ -236,9 +236,9 @@ public class CPParticles {
 
         @Environment(EnvType.CLIENT)
         public static class Factory implements ParticleProvider<SimpleParticleType> {
-            private final FabricSpriteProvider spriteProvider;
+            private final FabricSpriteSet spriteProvider;
 
-            public Factory(FabricSpriteProvider sprites) {
+            public Factory(FabricSpriteSet sprites) {
                 this.spriteProvider = sprites;
             }
 
@@ -260,9 +260,9 @@ public class CPParticles {
 
         @Environment(EnvType.CLIENT)
         public static class Factory implements ParticleProvider<SimpleParticleType> {
-            private final FabricSpriteProvider spriteProvider;
+            private final FabricSpriteSet spriteProvider;
 
-            public Factory(FabricSpriteProvider sprites) {
+            public Factory(FabricSpriteSet sprites) {
                 this.spriteProvider = sprites;
             }
 
@@ -286,9 +286,9 @@ public class CPParticles {
 
         @Environment(EnvType.CLIENT)
         public static class Factory implements ParticleProvider<SimpleParticleType> {
-            private final FabricSpriteProvider spriteProvider;
+            private final FabricSpriteSet spriteProvider;
 
-            public Factory(FabricSpriteProvider sprites) {
+            public Factory(FabricSpriteSet sprites) {
                 this.spriteProvider = sprites;
             }
 
@@ -312,9 +312,9 @@ public class CPParticles {
 
         @Environment(EnvType.CLIENT)
         public static class Factory implements ParticleProvider<SimpleParticleType> {
-            private final FabricSpriteProvider spriteProvider;
+            private final FabricSpriteSet spriteProvider;
 
-            public Factory(FabricSpriteProvider sprites) {
+            public Factory(FabricSpriteSet sprites) {
                 this.spriteProvider = sprites;
             }
 
@@ -338,9 +338,9 @@ public class CPParticles {
 
         @Environment(EnvType.CLIENT)
         public static class Factory implements ParticleProvider<SimpleParticleType> {
-            private final FabricSpriteProvider spriteProvider;
+            private final FabricSpriteSet spriteProvider;
 
-            public Factory(FabricSpriteProvider sprites) {
+            public Factory(FabricSpriteSet sprites) {
                 this.spriteProvider = sprites;
             }
 
@@ -364,9 +364,9 @@ public class CPParticles {
 
         @Environment(EnvType.CLIENT)
         public static class Factory implements ParticleProvider<SimpleParticleType> {
-            private final FabricSpriteProvider spriteProvider;
+            private final FabricSpriteSet spriteProvider;
 
-            public Factory(FabricSpriteProvider sprites) {
+            public Factory(FabricSpriteSet sprites) {
                 this.spriteProvider = sprites;
             }
 
@@ -390,9 +390,9 @@ public class CPParticles {
 
         @Environment(EnvType.CLIENT)
         public static class Factory implements ParticleProvider<SimpleParticleType> {
-            private final FabricSpriteProvider spriteProvider;
+            private final FabricSpriteSet spriteProvider;
 
-            public Factory(FabricSpriteProvider sprites) {
+            public Factory(FabricSpriteSet sprites) {
                 this.spriteProvider = sprites;
             }
 
@@ -414,9 +414,9 @@ public class CPParticles {
 
         @Environment(EnvType.CLIENT)
         public static class Factory implements ParticleProvider<SimpleParticleType> {
-            private final FabricSpriteProvider spriteProvider;
+            private final FabricSpriteSet spriteProvider;
 
-            public Factory(FabricSpriteProvider sprites) {
+            public Factory(FabricSpriteSet sprites) {
                 this.spriteProvider = sprites;
             }
 
@@ -440,9 +440,9 @@ public class CPParticles {
 
         @Environment(EnvType.CLIENT)
         public static class Factory implements ParticleProvider<SimpleParticleType> {
-            private final FabricSpriteProvider spriteProvider;
+            private final FabricSpriteSet spriteProvider;
 
-            public Factory(FabricSpriteProvider sprites) {
+            public Factory(FabricSpriteSet sprites) {
                 this.spriteProvider = sprites;
             }
 

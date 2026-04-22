@@ -6,7 +6,7 @@ import dev.custom.portals.items.PortalCatalyst;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -103,7 +103,7 @@ public class CPItems {
         Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(CustomPortals.MOD_ID, "strong_enhancer_rune"), STRONG_ENHANCER_RUNE);
         Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(CustomPortals.MOD_ID, "infinity_rune"), INFINITY_RUNE);
 
-        ItemGroupEvents.modifyEntriesEvent(CustomPortals.PORTALS_ITEM_GROUP).register(content -> {
+        CreativeModeTabEvents.modifyOutputEvent(CustomPortals.PORTALS_ITEM_GROUP).register(content -> {
             content.accept(WHITE_PORTAL_CATALYST);
             content.accept(LIGHT_GRAY_PORTAL_CATALYST);
             content.accept(GRAY_PORTAL_CATALYST);
