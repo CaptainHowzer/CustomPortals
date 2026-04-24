@@ -94,7 +94,7 @@ public class AbstractRuneBlock extends FaceAttachedHorizontalDirectionalBlock {
         adjacents.add(blockPos.north());
         adjacents.add(blockPos.above());
         for (BlockPos adjacent : adjacents) {
-            portal = CustomPortals.PORTALS.get(world).getPortalFromPos(adjacent);
+            portal = CustomPortals.PORTALS.maybeGet(world).map(c -> c.getPortalFromPos(adjacent)).orElse(null);
             if (portal != null) {
                 if ((adjacent.equals(blockPos.above()) || adjacent.equals(blockPos.below())) && (Direction.Axis)world.getBlockState(adjacent).getValue(BlockStateProperties.AXIS) != Direction.Axis.Y) {
                     registerOnPortal(portal, world);
@@ -122,7 +122,7 @@ public class AbstractRuneBlock extends FaceAttachedHorizontalDirectionalBlock {
         adjacents.add(blockPos.north());
         adjacents.add(blockPos.above());
         for (BlockPos adjacent : adjacents) {
-            portal = CustomPortals.PORTALS.get(world).getPortalFromPos(adjacent);
+            portal = CustomPortals.PORTALS.maybeGet(world).map(c -> c.getPortalFromPos(adjacent)).orElse(null);
             if (portal != null) {
                 if ((adjacent.equals(blockPos.above()) || adjacent.equals(blockPos.below())) && (Direction.Axis)world.getBlockState(adjacent).getValue(BlockStateProperties.AXIS) != Direction.Axis.Y) {
                     unregisterOnPortal(portal, world);

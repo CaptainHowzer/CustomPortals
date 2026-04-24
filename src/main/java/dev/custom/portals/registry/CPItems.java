@@ -141,7 +141,7 @@ public class CPItems {
                 list.add(Component.translatable("item.customportals.weak_enhancer_rune.tooltip", CPSettings.instance().rangeWithEnhancer).withStyle(ChatFormatting.GRAY));
             }
             else if (itemStack.is(STRONG_ENHANCER_RUNE)) {
-                list.add(Component.translatable("item.customportals.weak_enhancer_rune.tooltip", CPSettings.instance().rangeWithStrongEnhancer).withStyle(ChatFormatting.GRAY));
+                list.add(Component.translatable("item.customportals.strong_enhancer_rune.tooltip", CPSettings.instance().rangeWithStrongEnhancer).withStyle(ChatFormatting.GRAY));
             }
             else if (itemStack.is(INFINITY_RUNE)) {
                 list.add(Component.translatable("item.customportals.infinity_rune.tooltip").withStyle(ChatFormatting.GRAY));

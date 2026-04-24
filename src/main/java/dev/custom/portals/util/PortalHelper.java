@@ -214,7 +214,12 @@ public class PortalHelper {
         CustomPortal portal = new CustomPortal(frameId, world.dimension().identifier().toString(),
                 portalBlock.defaultMapColor(), spawnPosData.blockPos, portalBlocks, spawnPosData.offsetX,
                 spawnPosData.offsetZ, creatorId);
-        CustomPortals.PORTALS.get(world).registerPortal(portal);
+        CustomPortals.PORTALS.maybeGet(world).ifPresent(component -> {
+            component.registerPortal(portal);
+            if (!world.isClientSide()) {
+                component.syncWithAll(((ServerLevel) world).getServer());
+            }
+        });
 
         // register any runes that were already on the portal frames
         for (BlockPos framePos : frames) {
@@ -226,8 +231,6 @@ public class PortalHelper {
                         ((AbstractRuneBlock)block).registerOnPortal(portal, world);
             }
         }
-        if(!world.isClientSide())
-            CustomPortals.PORTALS.get(world).syncWithAll(((ServerLevel)world).getServer());
         return true;
     }
 

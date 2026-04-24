@@ -90,18 +90,23 @@ public class PortalBlock extends Block implements EntityBlock, SimpleWaterlogged
    @Override
    public InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level world, BlockPos blockPos, Player playerEntity, InteractionHand hand, BlockHitResult blockHitResult) {
       if (playerEntity.isShiftKeyDown() && itemStack.isEmpty()) {
-         CustomPortal portal = CustomPortals.PORTALS.get(world).getPortalFromPos(blockPos);
+         CustomPortal portal = CustomPortals.PORTALS.maybeGet(world)
+                 .map(component -> component.getPortalFromPos(blockPos))
+                 .orElse(null);
          if (portal == null) return InteractionResult.FAIL;
          portal.setSpawnPos(blockPos);
          if (world.isClientSide())
-            playerEntity.displayClientMessage(Component.nullToEmpty("Set portal's spawn position to " + CustomPortals.blockPosToString(blockPos)), true);
+            playerEntity.sendSystemMessage(Component.nullToEmpty("Set portal's spawn position to " + CustomPortals.blockPosToString(blockPos)));
          return InteractionResult.SUCCESS;
       }
       return InteractionResult.TRY_WITH_EMPTY_HAND;
    }
    @Override
    public void randomTick(BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource random) {
-      CustomPortal portal = CustomPortals.PORTALS.get(serverLevel).getPortalFromPos(pos);
+         BlockPos portalPos = pos;
+      CustomPortal portal = CustomPortals.PORTALS.maybeGet(serverLevel)
+            .map(component -> component.getPortalFromPos(portalPos))
+              .orElse(null);
       if(portal == null)
          return;
       if(portal.isInterdimensional()) {
@@ -135,12 +140,14 @@ public class PortalBlock extends Block implements EntityBlock, SimpleWaterlogged
    @Override
    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
       super.playerWillDestroy(world, pos, state, player);
-      CustomPortal portal = CustomPortals.PORTALS.get(world).getPortalFromPos(pos);
-      if(portal != null) {
-         CustomPortals.PORTALS.get(world).unregisterPortal(portal);
-         if(!world.isClientSide())
-            CustomPortals.PORTALS.get(world).syncWithAll(((ServerLevel)world).getServer());
-      }
+      CustomPortals.PORTALS.maybeGet(world).ifPresent(component -> {
+         CustomPortal portal = component.getPortalFromPos(pos);
+         if(portal != null) {
+            component.unregisterPortal(portal);
+            if(!world.isClientSide())
+               component.syncWithAll(((ServerLevel)world).getServer());
+         }
+      });
       return state;
    }
 
@@ -191,13 +198,17 @@ public class PortalBlock extends Block implements EntityBlock, SimpleWaterlogged
       Level world = (Level)worldView;
       boolean bl = axis2 == Direction.Axis.Y ? axis2 == axis && axis.isVertical() : axis2 != axis && axis.isHorizontal();
       if(!bl && !newState.is(this) && !PortalShape.findAnyShape(worldView, pos, axis2).isComplete()) {
-         CustomPortal portal = CustomPortals.PORTALS.get(world).getPortalFromPos(pos);
+         CustomPortal portal = CustomPortals.PORTALS.maybeGet(world)
+                 .map(component -> component.getPortalFromPos(pos))
+                 .orElse(null);
          if(portal != null) {
             if (newState.getBlock().getDescriptionId().equals(portal.getFrameId()))
                return super.updateShape(state, worldView, scheduledTickView, pos, direction, posFrom, newState, random);
-            CustomPortals.PORTALS.get(world).unregisterPortal(portal);
-            if(!world.isClientSide())
-               CustomPortals.PORTALS.get(world).syncWithAll(((ServerLevel)world).getServer());
+            CustomPortals.PORTALS.maybeGet(world).ifPresent(component -> {
+               component.unregisterPortal(portal);
+               if(!world.isClientSide())
+                  component.syncWithAll(((ServerLevel)world).getServer());
+            });
             dropCatalyst(portal, world);
          }
          return Blocks.AIR.defaultBlockState();
@@ -215,7 +226,9 @@ public class PortalBlock extends Block implements EntityBlock, SimpleWaterlogged
 
    @Override
    public void neighborChanged(BlockState blockState, Level world, BlockPos blockPos, Block block, @Nullable Orientation wireOrientation, boolean bl) {
-      CustomPortal portal = CustomPortals.PORTALS.get(world).getPortalFromPos(blockPos);
+      CustomPortal portal = CustomPortals.PORTALS.maybeGet(world)
+              .map(component -> component.getPortalFromPos(blockPos))
+              .orElse(null);
       if (portal == null)
          return;
       boolean bl2 = checkRedstoneSignal(world, portal);
@@ -228,7 +241,9 @@ public class PortalBlock extends Block implements EntityBlock, SimpleWaterlogged
    public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity, InsideBlockEffectApplier entityCollisionHandler, boolean bl) {
       if (!state.getValue(LIT))
          return;
-      CustomPortal portal = CustomPortals.PORTALS.get(world).getPortalFromPos(pos);
+      CustomPortal portal = CustomPortals.PORTALS.maybeGet(world)
+              .map(component -> component.getPortalFromPos(pos))
+              .orElse(null);
       if(portal != null && entity.canUsePortal(false)) {
          entity.setAsInsidePortal(this, pos);
          ((EntityMixinAccess) entity).setInCustomPortal(portal);
@@ -376,7 +391,9 @@ public class PortalBlock extends Block implements EntityBlock, SimpleWaterlogged
    @Nullable
    @Override
    public TeleportTransition getPortalDestination(ServerLevel serverWorld, Entity entity, BlockPos blockPos) {
-      CustomPortal portal = CustomPortals.PORTALS.get(serverWorld).getPortalFromPos(blockPos);
+      CustomPortal portal = CustomPortals.PORTALS.maybeGet(serverWorld)
+           .map(component -> component.getPortalFromPos(blockPos))
+           .orElse(null);
       if (portal == null) return null;
       CustomPortal destPortal = portal.getLinked();
       if (destPortal == null) return null;

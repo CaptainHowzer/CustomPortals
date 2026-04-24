@@ -9,17 +9,18 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.At;
-
-import dev.custom.portals.blocks.PortalBlock;
 import dev.custom.portals.util.EntityMixinAccess;
 
 import org.spongepowered.asm.mixin.Final;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.sprite.SpriteId;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 
 @Mixin(Gui.class)
 public abstract class GuiMixin {
@@ -28,8 +29,8 @@ public abstract class GuiMixin {
     @Shadow
     private Minecraft minecraft;
 
-    @Inject(method = "renderPortalOverlay", at = @At("HEAD"), cancellable = true)
-    private void renderPortalOverlay(GuiGraphicsExtractor drawContext, float f, CallbackInfo ci) {
+    @Inject(method = "extractPortalOverlay", at = @At("HEAD"), cancellable = true)
+    private void extractPortalOverlay(GuiGraphicsExtractor drawContext, float f, CallbackInfo ci) {
         int color = ((EntityMixinAccess)this.minecraft.player).getPortalColor();
         if(color != 0 && !((EntityMixinAccess)this.minecraft.player).isInNetherPortal()) {
             Block spriteModel = PortalHelper.getPortalBlockFromColorId(color);
@@ -40,7 +41,9 @@ public abstract class GuiMixin {
             }
 
             int i = ARGB.white(f);
-            TextureAtlasSprite sprite = this.minecraft.getBlockRenderer().getBlockModelShaper().getParticleIcon(spriteModel.defaultBlockState().setValue(PortalBlock.LIT, true));
+            Identifier blockId = BuiltInRegistries.BLOCK.getKey(spriteModel);
+            Identifier textureId = Identifier.fromNamespaceAndPath(blockId.getNamespace(), "block/" + blockId.getPath());
+            TextureAtlasSprite sprite = this.minecraft.getAtlasManager().get(new SpriteId(TextureAtlas.LOCATION_BLOCKS, textureId));
             drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, 0, 0, drawContext.guiWidth(), drawContext.guiHeight(), i);
             ci.cancel();
         }
