@@ -1,7 +1,6 @@
 package dev.custom.portals.blocks;
 
-import java.util.List;
-
+import com.mojang.serialization.MapCodec;
 import dev.custom.portals.CustomPortals;
 import dev.custom.portals.data.CustomPortal;
 import dev.custom.portals.config.CPSettings;
@@ -15,6 +14,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.world.level.Level;
 
 public class EnhancerRuneBlock extends AbstractRuneBlock {
+
+    public static final MapCodec<EnhancerRuneBlock> CODEC = simpleCodec(EnhancerRuneBlock::new);
+
+    @Override
+    public MapCodec<EnhancerRuneBlock> codec() {
+        return CODEC;
+    }
 
     public EnhancerRuneBlock(BlockBehaviour.Properties settings) {
         super(settings);
