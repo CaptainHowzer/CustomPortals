@@ -4,12 +4,7 @@ import com.mojang.serialization.MapCodec;
 import dev.custom.portals.CustomPortals;
 import dev.custom.portals.data.CustomPortal;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
 import net.minecraft.world.level.Level;
 
 public class InfinityRuneBlock extends AbstractRuneBlock {
@@ -27,9 +22,7 @@ public class InfinityRuneBlock extends AbstractRuneBlock {
 
     @Override
     public void registerOnPortal(CustomPortal portal, Level world) {
-        LOGGER.info("[CP-DEBUG] InfinityRuneBlock.registerOnPortal - infinityRunes BEFORE: {}", portal.getInfinityRunes());
         portal.addInfinity();
-        LOGGER.info("[CP-DEBUG] InfinityRuneBlock.registerOnPortal - infinityRunes AFTER: {}, tier: {}", portal.getInfinityRunes(), portal.getEnhanceTier());
         CustomPortals.PORTALS.get(world).tryWithAll(portal);
         if (!world.isClientSide())
             CustomPortals.PORTALS.get(world).syncWithAll(((ServerLevel)world).getServer());

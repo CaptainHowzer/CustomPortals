@@ -18,8 +18,6 @@ import org.ladysnake.cca.api.v3.component.ComponentKey;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
@@ -32,7 +30,6 @@ import net.minecraft.core.BlockPos;
 public class CustomPortals implements ModInitializer, LevelComponentInitializer {
 
         public static final String MOD_ID = "customportals";
-        public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
         public static final ComponentKey<BasePortalComponent> PORTALS = ComponentRegistryV3.INSTANCE
                 .getOrCreate(Identifier.parse("customportals:portals"), BasePortalComponent.class);
