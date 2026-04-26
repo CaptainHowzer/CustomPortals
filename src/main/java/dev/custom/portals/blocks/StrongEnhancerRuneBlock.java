@@ -28,7 +28,9 @@ public class StrongEnhancerRuneBlock extends AbstractRuneBlock {
 
     @Override
     public void registerOnPortal(CustomPortal portal, Level world) {
+        LOGGER.info("[CP-DEBUG] StrongEnhancerRuneBlock.registerOnPortal - strongEnhancerRunes BEFORE: {}", portal.getStrongEnhancerRunes());
         portal.addStrongEnhancer();
+        LOGGER.info("[CP-DEBUG] StrongEnhancerRuneBlock.registerOnPortal - strongEnhancerRunes AFTER: {}, tier: {}", portal.getStrongEnhancerRunes(), portal.getEnhanceTier());
         CustomPortals.PORTALS.get(world).tryWithAll(portal);
         if (!world.isClientSide())
             CustomPortals.PORTALS.get(world).syncWithAll(((ServerLevel)world).getServer());

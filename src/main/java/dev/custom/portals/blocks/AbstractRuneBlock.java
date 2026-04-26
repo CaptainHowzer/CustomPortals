@@ -6,6 +6,8 @@ import java.util.List;
 import com.mojang.serialization.MapCodec;
 import dev.custom.portals.CustomPortals;
 import dev.custom.portals.data.CustomPortal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -25,6 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 
 public class AbstractRuneBlock extends FaceAttachedHorizontalDirectionalBlock {
+    protected static final Logger LOGGER = LoggerFactory.getLogger("customportals");
     public static final MapCodec<AbstractRuneBlock> CODEC = simpleCodec(AbstractRuneBlock::new);
     protected static final VoxelShape CEILING_SHAPE;
     protected static final VoxelShape FLOOR_SHAPE;
@@ -94,17 +97,22 @@ public class AbstractRuneBlock extends FaceAttachedHorizontalDirectionalBlock {
         adjacents.add(blockPos.south());
         adjacents.add(blockPos.north());
         adjacents.add(blockPos.above());
+        LOGGER.info("[CP-DEBUG] setPlacedBy called on {} at {}", this.getClass().getSimpleName(), pos);
         for (BlockPos adjacent : adjacents) {
             portal = CustomPortals.PORTALS.maybeGet(world).map(c -> c.getPortalFromPos(adjacent)).orElse(null);
             if (portal != null) {
                 BlockState adjacentState = world.getBlockState(adjacent);
+                LOGGER.info("[CP-DEBUG] Portal found at {}, block={}, hasAxis={}", adjacent, adjacentState.getBlock(), adjacentState.hasProperty(BlockStateProperties.AXIS));
                 if ((adjacent.equals(blockPos.above()) || adjacent.equals(blockPos.below())) && adjacentState.hasProperty(BlockStateProperties.AXIS) && (Direction.Axis)adjacentState.getValue(BlockStateProperties.AXIS) != Direction.Axis.Y) {
+                    LOGGER.info("[CP-DEBUG] Calling registerOnPortal on {} (above/below)", this.getClass().getSimpleName());
                     registerOnPortal(portal, world);
                 }
                 if ((adjacent.equals(blockPos.east()) || adjacent.equals(blockPos.west())) && adjacentState.hasProperty(BlockStateProperties.AXIS) && (Direction.Axis)adjacentState.getValue(BlockStateProperties.AXIS) != Direction.Axis.Z) {
+                    LOGGER.info("[CP-DEBUG] Calling registerOnPortal on {} (east/west)", this.getClass().getSimpleName());
                     registerOnPortal(portal, world);
                 }
                 if ((adjacent.equals(blockPos.north()) || adjacent.equals(blockPos.south())) && adjacentState.hasProperty(BlockStateProperties.AXIS) && (Direction.Axis)adjacentState.getValue(BlockStateProperties.AXIS) != Direction.Axis.X) {
+                    LOGGER.info("[CP-DEBUG] Calling registerOnPortal on {} (north/south)", this.getClass().getSimpleName());
                     registerOnPortal(portal, world);
                 }
             }

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import com.mojang.serialization.Codec;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.custom.portals.config.CPSettings;
 import net.minecraft.world.level.material.MapColor;
@@ -12,6 +14,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 
 public class CustomPortal {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger("customportals");
 
     public float offsetX;
     public float offsetZ;
@@ -205,7 +209,9 @@ public class CustomPortal {
     public int getEnhanceTier() {
         int i = this.hasLinked() ? linked.getInfinityRunes() : 0;
         int j = this.hasLinked() ? linked.getStrongEnhancerRunes() : 0;
-        int k = this.hasLinked() ? linked.getWeakEnhancerRunes() : 0; 
+        int k = this.hasLinked() ? linked.getWeakEnhancerRunes() : 0;
+        LOGGER.info("[CP-DEBUG] getEnhanceTier: infinity={}, strongEnhancer={}, weakEnhancer={} (linked: infinity={}, strong={}, weak={})",
+            infinityRunes, strongEnhancerRunes, weakEnhancerRunes, i, j, k);
         if ((infinityRunes + i) > 0)
             return 3;
         if ((strongEnhancerRunes + j) > 0)
@@ -244,6 +250,8 @@ public class CustomPortal {
                 } else distance = distance(spawnPos, portal.getSpawnPos());
                 if (!CPSettings.instance().unlimitedRange) {
                     int tier = Math.max(portal.getEnhanceTier(), this.getEnhanceTier());
+                    LOGGER.info("[CP-DEBUG] tryLink: distance={}, tier={}, unlimitedRange={}, maxRange(tier2)={}",
+                        distance, tier, CPSettings.instance().unlimitedRange, CPSettings.instance().rangeWithStrongEnhancer);
                     switch (tier) {
                         case 0 -> {
                             if (distance > CPSettings.instance().defaultRange)
