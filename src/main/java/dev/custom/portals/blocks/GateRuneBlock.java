@@ -1,7 +1,6 @@
 package dev.custom.portals.blocks;
 
-import java.util.List;
-
+import com.mojang.serialization.MapCodec;
 import dev.custom.portals.CustomPortals;
 import dev.custom.portals.data.CustomPortal;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -14,6 +13,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.world.level.Level;
 
 public class GateRuneBlock extends AbstractRuneBlock {
+
+    public static final MapCodec<GateRuneBlock> CODEC = simpleCodec(GateRuneBlock::new);
+
+    @Override
+    public MapCodec<GateRuneBlock> codec() {
+        return CODEC;
+    }
 
     public GateRuneBlock(BlockBehaviour.Properties settings) {
         super(settings);

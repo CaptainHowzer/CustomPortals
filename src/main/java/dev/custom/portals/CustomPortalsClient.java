@@ -1,6 +1,5 @@
 package dev.custom.portals;
 
-import dev.custom.portals.registry.CPBlocks;
 import dev.custom.portals.registry.CPItems;
 import dev.custom.portals.registry.CPParticles;
 import dev.custom.portals.util.ClientUtil;
@@ -12,7 +11,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 public class CustomPortalsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        CPBlocks.setBlockRenderLayers();
         CPItems.registerItemTooltips();
         CPParticles.registerFactoryRegistries();
         ClientPlayNetworking.registerGlobalReceiver(DrawSpritePayload.ID, (payload, context) -> {

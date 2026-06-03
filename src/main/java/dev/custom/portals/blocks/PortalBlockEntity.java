@@ -19,7 +19,9 @@ public class PortalBlockEntity extends BlockEntity {
     public static <T extends BlockEntity> void tick(Level world, BlockPos pos, BlockState state, BlockEntity be) {
         if (world.isClientSide())
             return;
-        CustomPortal portal = CustomPortals.PORTALS.get(world).getPortalFromPos(pos);
+        CustomPortal portal = CustomPortals.PORTALS.maybeGet(world)
+                .map(component -> component.getPortalFromPos(pos))
+                .orElse(null);
         if (portal != null) {
             if (CPSettings.instance().redstone == CPSettings.RedstoneEnum.OFF) {
                 if (portal.hasLinked() && !(Boolean) state.getValue(PortalBlock.LIT) && !portal.hasRedstoneSignal()) {

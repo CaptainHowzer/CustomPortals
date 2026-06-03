@@ -7,7 +7,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.custom.portals.config.CPSettings;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 
@@ -205,7 +204,7 @@ public class CustomPortal {
     public int getEnhanceTier() {
         int i = this.hasLinked() ? linked.getInfinityRunes() : 0;
         int j = this.hasLinked() ? linked.getStrongEnhancerRunes() : 0;
-        int k = this.hasLinked() ? linked.getWeakEnhancerRunes() : 0; 
+        int k = this.hasLinked() ? linked.getWeakEnhancerRunes() : 0;
         if ((infinityRunes + i) > 0)
             return 3;
         if ((strongEnhancerRunes + j) > 0)

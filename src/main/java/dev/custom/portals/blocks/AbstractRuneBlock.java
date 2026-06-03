@@ -33,7 +33,8 @@ public class AbstractRuneBlock extends FaceAttachedHorizontalDirectionalBlock {
     protected static final VoxelShape WEST_SHAPE;
     protected static final VoxelShape EAST_SHAPE;
 
-    public MapCodec<AbstractRuneBlock> codec() {
+    @Override
+    public MapCodec<? extends AbstractRuneBlock> codec() {
         return CODEC;
     }
 
@@ -94,15 +95,16 @@ public class AbstractRuneBlock extends FaceAttachedHorizontalDirectionalBlock {
         adjacents.add(blockPos.north());
         adjacents.add(blockPos.above());
         for (BlockPos adjacent : adjacents) {
-            portal = CustomPortals.PORTALS.get(world).getPortalFromPos(adjacent);
+            portal = CustomPortals.PORTALS.maybeGet(world).map(c -> c.getPortalFromPos(adjacent)).orElse(null);
             if (portal != null) {
-                if ((adjacent.equals(blockPos.above()) || adjacent.equals(blockPos.below())) && (Direction.Axis)world.getBlockState(adjacent).getValue(BlockStateProperties.AXIS) != Direction.Axis.Y) {
+                BlockState adjacentState = world.getBlockState(adjacent);
+                if ((adjacent.equals(blockPos.above()) || adjacent.equals(blockPos.below())) && adjacentState.hasProperty(BlockStateProperties.AXIS) && (Direction.Axis)adjacentState.getValue(BlockStateProperties.AXIS) != Direction.Axis.Y) {
                     registerOnPortal(portal, world);
                 }
-                if ((adjacent.equals(blockPos.east()) || adjacent.equals(blockPos.west())) && (Direction.Axis)world.getBlockState(adjacent).getValue(BlockStateProperties.AXIS) != Direction.Axis.Z) {
+                if ((adjacent.equals(blockPos.east()) || adjacent.equals(blockPos.west())) && adjacentState.hasProperty(BlockStateProperties.AXIS) && (Direction.Axis)adjacentState.getValue(BlockStateProperties.AXIS) != Direction.Axis.Z) {
                     registerOnPortal(portal, world);
                 }
-                if ((adjacent.equals(blockPos.north()) || adjacent.equals(blockPos.south())) && (Direction.Axis)world.getBlockState(adjacent).getValue(BlockStateProperties.AXIS) != Direction.Axis.X) {
+                if ((adjacent.equals(blockPos.north()) || adjacent.equals(blockPos.south())) && adjacentState.hasProperty(BlockStateProperties.AXIS) && (Direction.Axis)adjacentState.getValue(BlockStateProperties.AXIS) != Direction.Axis.X) {
                     registerOnPortal(portal, world);
                 }
             }
@@ -122,15 +124,16 @@ public class AbstractRuneBlock extends FaceAttachedHorizontalDirectionalBlock {
         adjacents.add(blockPos.north());
         adjacents.add(blockPos.above());
         for (BlockPos adjacent : adjacents) {
-            portal = CustomPortals.PORTALS.get(world).getPortalFromPos(adjacent);
+            portal = CustomPortals.PORTALS.maybeGet(world).map(c -> c.getPortalFromPos(adjacent)).orElse(null);
             if (portal != null) {
-                if ((adjacent.equals(blockPos.above()) || adjacent.equals(blockPos.below())) && (Direction.Axis)world.getBlockState(adjacent).getValue(BlockStateProperties.AXIS) != Direction.Axis.Y) {
+                BlockState adjacentState = world.getBlockState(adjacent);
+                if ((adjacent.equals(blockPos.above()) || adjacent.equals(blockPos.below())) && adjacentState.hasProperty(BlockStateProperties.AXIS) && (Direction.Axis)adjacentState.getValue(BlockStateProperties.AXIS) != Direction.Axis.Y) {
                     unregisterOnPortal(portal, world);
                 }
-                if ((adjacent.equals(blockPos.east()) || adjacent.equals(blockPos.west())) && (Direction.Axis)world.getBlockState(adjacent).getValue(BlockStateProperties.AXIS) != Direction.Axis.Z) {
+                if ((adjacent.equals(blockPos.east()) || adjacent.equals(blockPos.west())) && adjacentState.hasProperty(BlockStateProperties.AXIS) && (Direction.Axis)adjacentState.getValue(BlockStateProperties.AXIS) != Direction.Axis.Z) {
                     unregisterOnPortal(portal, world);
                 }
-                if ((adjacent.equals(blockPos.north()) || adjacent.equals(blockPos.south())) && (Direction.Axis)world.getBlockState(adjacent).getValue(BlockStateProperties.AXIS) != Direction.Axis.X) {
+                if ((adjacent.equals(blockPos.north()) || adjacent.equals(blockPos.south())) && adjacentState.hasProperty(BlockStateProperties.AXIS) && (Direction.Axis)adjacentState.getValue(BlockStateProperties.AXIS) != Direction.Axis.X) {
                     unregisterOnPortal(portal, world);
                 }
             }

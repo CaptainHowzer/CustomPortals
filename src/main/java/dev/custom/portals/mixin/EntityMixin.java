@@ -170,7 +170,9 @@ public abstract class EntityMixin implements EntityMixinAccess {
     @Unique
     public int getPortalColor() {
         if (portalColor == 0) {
-            CustomPortal portal = CustomPortals.PORTALS.get(level).getPortalFromPos(blockPosition);
+            CustomPortal portal = CustomPortals.PORTALS.maybeGet(level)
+                    .map(component -> component.getPortalFromPos(blockPosition))
+                    .orElse(null);
             portalColor = portal == null ? 0 : portal.getColor().id;
         }
         return portalColor;

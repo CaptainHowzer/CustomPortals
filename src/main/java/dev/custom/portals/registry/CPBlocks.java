@@ -4,15 +4,11 @@ import java.util.function.ToIntFunction;
 
 import dev.custom.portals.CustomPortals;
 import dev.custom.portals.blocks.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -131,30 +127,5 @@ public class CPBlocks {
                 PORTAL_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, "customportals:portal_block_entity", FabricBlockEntityTypeBuilder.create(
                         PortalBlockEntity::new, BLACK_PORTAL, BLUE_PORTAL, BROWN_PORTAL, CYAN_PORTAL, GRAY_PORTAL, GREEN_PORTAL, LIGHT_BLUE_PORTAL, 
                         LIGHT_GRAY_PORTAL, LIME_PORTAL, MAGENTA_PORTAL, ORANGE_PORTAL, PINK_PORTAL, PURPLE_PORTAL, RED_PORTAL, WHITE_PORTAL, YELLOW_PORTAL).build(null));
-        }
-
-        @Environment(EnvType.CLIENT)
-        public static void setBlockRenderLayers() {
-                BlockRenderLayerMap.putBlock(HASTE_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
-                BlockRenderLayerMap.putBlock(GATE_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
-                BlockRenderLayerMap.putBlock(WEAK_ENHANCER_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
-                BlockRenderLayerMap.putBlock(STRONG_ENHANCER_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
-                BlockRenderLayerMap.putBlock(INFINITY_RUNE_BLOCK, ChunkSectionLayer.CUTOUT);
-                BlockRenderLayerMap.putBlock(BLACK_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(BLUE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(BROWN_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(CYAN_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(GRAY_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(GREEN_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(LIGHT_BLUE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(LIGHT_GRAY_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(LIME_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(MAGENTA_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(ORANGE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(PINK_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(PURPLE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(RED_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(WHITE_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(YELLOW_PORTAL, ChunkSectionLayer.TRANSLUCENT);
         }
 }

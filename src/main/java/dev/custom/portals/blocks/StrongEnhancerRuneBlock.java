@@ -1,20 +1,20 @@
 package dev.custom.portals.blocks;
 
-import java.util.List;
-
+import com.mojang.serialization.MapCodec;
 import dev.custom.portals.CustomPortals;
-import dev.custom.portals.config.CPSettings;
 import dev.custom.portals.data.CustomPortal;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
 import net.minecraft.world.level.Level;
 
 public class StrongEnhancerRuneBlock extends AbstractRuneBlock {
+
+    public static final MapCodec<StrongEnhancerRuneBlock> CODEC = simpleCodec(StrongEnhancerRuneBlock::new);
+
+    @Override
+    public MapCodec<StrongEnhancerRuneBlock> codec() {
+        return CODEC;
+    }
 
     public StrongEnhancerRuneBlock(BlockBehaviour.Properties settings) {
         super(settings);
